@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.125/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
+
+
+</head>
+<body>
+
+    <div style="display: flex; align-items: center; justify-content: center ; height: 100px; width: 81%; background: linear-gradient(#3c505500,#0f171a00); position: absolute; z-index: 1; font-family: sans-serif; color: white; font-size: 50px; letter-spacing: 30px; right: 10.5%;  ">
+    <div style="height: 60px; width: 60px; margin-right: 30px; background-image: url(PMRDA_logo.jpg); background-size: cover;"></div>PMRDA</div>
+
+    
+  <div id="cesiumContainer">
+     <div id="slidebar"> 
+          <button id="G1" class="buttons">G1</button>
+          <button id="G2" class="buttons">G2</button>
+          <button id="G3" class="buttons">G3</button>
+          <button id="G4" class="buttons">G4</button>
+          <button id="G5" class="buttons">G5</button>
+          <button id="G6" class="buttons">G6</button>
+          <button id="G7" class="buttons">G7</button>
+          <button id="G8" class="buttons">G8</button>
+          <button id="G9" class="buttons">G9</button>
+          <button id="G10" class="buttons">G10</button>
+          <button id="G11" class="buttons">G11</button>
+          <button id="G12" class="buttons">G12</button>
+          <button id="G13" class="buttons">G13</button>
+          <button id="G14" class="buttons">G14</button>
+          <button id="G15" class="buttons">G15</button>
+          <button id="G16" class="buttons">G16</button>
+          <button id="G17" class="buttons">G17</button>
+          <button id="G18" class="buttons">G18</button>
+          <button id="G19" class="buttons">G19</button>
+          <button id="G20" class="buttons">G20</button>
+          <button id="D1" class="buttons">D1</button>
+          <button id="D2" class="buttons">D2</button>
+          <button id="D3" class="buttons">D3</button>
+          <button id="D4" class="buttons">D4</button>
+          <button id="D5" class="buttons">D5</button>
+          <button id="D6" class="buttons">D6</button>
+          <button id="D7" class="buttons">D7</button>
+          <button id="D8" class="buttons">D8</button>
+          <button id="D9" class="buttons">D9</button>
+          <button id="D10" class="buttons">D10</button>
+          <button id="D11" class="buttons">D11</button>
+          <button id="D12" class="buttons">D12</button>
+          <button id="D13" class="buttons">D13</button>
+          <button id="E1" class="buttons">E1</button>
+          <button id="E2" class="buttons">E2</button>
+          <button id="E3" class="buttons">E3</button>
+          <button id="E4" class="buttons">E4</button>
+          <button id="E5" class="buttons">E5</button>
+          <button id="E6" class="buttons">E6</button>
+          <button id="E7" class="buttons">E7</button>
+          <button id="E8" class="buttons">E8</button>
+          <button id="E9" class="buttons">E9</button>
+          <button id="E10" class="buttons">E10</button>
+          <button id="E11" class="buttons">E11</button>
+          <button id="E12" class="buttons">E12</button>
+          <button id="F1" class="buttons">F1</button>
+          <button id="F2" class="buttons">F2</button>
+    </div>
+    <button id="zoomToBTN">Show Building</button>
+    <button id="project_details_btn">Project Details</button>
+    <button id="DashButton">Dashborad</button>
+
+   
+    <div  class="chart-container" id="barChart">
+        
+    <div  class="Piechart-container" id="PiebarChart">
+      <div style="background-color: #cccccc; height: 20%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 30px;">Total</div>
+      <div style="background-color: #dddddd; height: 80%; display: flex; align-items: center; justify-content: center; overflow: visible;"><canvas id="pieChart"></canvas></div>
+    </div> 
+
+    <div class="seriesMainDiv">
+      <div class="seriesSubDiv">
+        <div style="background-color: #cccccc; height: 20%; display: flex; align-items: center; justify-content: center; font-weight: bold; overflow: visible;">P3 : G1 & G2</div>
+        <div style="background-color: #dddddd; height: 80%; display: flex; align-items: center; justify-content: center; overflow: visible;"><canvas id="gSeriesPieChart" style="overflow: visible;"></canvas></div>    
+      </div>
+
+      <div class="seriesSubDiv">
+        <div style="background-color: #cccccc; height: 20%; display: flex; align-items: center; justify-content: center; font-weight: bold; overflow: visible;">P4 : D1, D2 & D3</div>
+        <div style="background-color: #dddddd; height: 80%; display: flex; align-items: center; justify-content: center; overflow: visible;"><canvas id="dSeriesPieChart" style="overflow: visible;"></canvas></div>
+      </div>
+
+      <div class="seriesSubDiv">
+        <div style="background-color: #cccccc; height: 20%; display: flex; align-items: center; justify-content: center; font-weight: bold; overflow: visible;">P5 : E & F</div>
+        <div style="background-color: #dddddd; height: 80%; display: flex; align-items: center; justify-content: center; overflow: visible;"><canvas id="efSeriesPieChart" style="overflow: visible;"></canvas></div>
+      </div>
+
+
+    </div>
+
+    <div id="barCChart"></div>
+    
+    </div>
+
+
+
+    <div id="projectDetailsDiv">
+      <img src="PMRDAProjectDetails.jpg" alt="" style="height: 100%; width: 100%; object-fit: cover;">  
+    </div>
+
+
+
+  </div>
+
+  <script>
+ // Button div show start-----------------------------------------
+    const toggleButton = document.getElementById('DashButton');
+    const toggleDiv = document.getElementById('barChart');
+
+    toggleButton.addEventListener('click', () => {
+      // Toggle the "open" class
+      toggleDiv.classList.toggle('open');
+    });
+
+
+
+    const toggleButtonBLDG = document.getElementById('zoomToBTN');
+    const toggleDivBLDG = document.getElementById('slidebar');
+
+    toggleButtonBLDG.addEventListener('click', () => {
+      // Toggle the "open" class
+      toggleDivBLDG.classList.toggle('open');
+    });
+
+    const toggleButton_projectDetails = document.getElementById('project_details_btn');
+    const toggleDiv_projectDetails = document.getElementById('projectDetailsDiv');
+
+    toggleButton_projectDetails.addEventListener('click', () => {
+      // Toggle the "open" class
+      toggleDiv_projectDetails.classList.toggle('open');
+    });
+ // Button div show END-----------------------------------------
+
+
+
+    // Google Sheet CSV URL
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyQDg6jtLgsJRLl9I8qNOIs4qqtDPcQciCzh74ZNZaVId7Zels1ENmB7XFHOoejLY1_SMmTFKy-A3K/pub?gid=0&single=true&output=csv";
+
+
+
+
+    const totalFloors = 14; // Max value representing 100%
+    function fetchAndRenderBarChart() {
+      // Add cache-busting parameter to the URL
+      const cacheBustingURL = `${sheetURL}&t=${new Date().getTime()}`;
+
+      Papa.parse(cacheBustingURL, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data;
+          renderBarChart(data);
+        },
+        error: function(error) {
+          console.error("Error fetching data:", error);
+        }
+      });
+    }
+
+    function renderBarChart(data) {
+      const barChartContainer = document.getElementById('barCChart');
+      barChartContainer.innerHTML = ""; // Clear previous chart
+
+      data.forEach(building => {
+        // Calculate the percentage
+        const percentage = (building.value / totalFloors) * 100;
+
+        // Create a bar container
+        const barContainer = document.createElement('div');
+        barContainer.className = 'bar-container';
+
+        // Create a label
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.innerText = building.name;
+
+        // Create a container for the bar and text
+        const barWithText = document.createElement('div');
+        barWithText.className = 'bar-with-text';
+
+        // Create a bar
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.width = percentage + '%'; // Set width dynamically
+        bar.innerText = `${Math.round(percentage)}%`;
+
+        // Create a floors completed label
+        const floorsCompleted = document.createElement('div');
+        floorsCompleted.className = 'floors-completed';
+        floorsCompleted.innerText = `${building.value} floors completed`;
+
+        // Append the floors completed label to the bar
+        bar.appendChild(floorsCompleted);
+
+        // Create an "in-progress floors" text
+        const inProgress = document.createElement('div');
+        inProgress.className = 'in-progress';
+        inProgress.innerText = `IN-PROGRESS - ${building.inProgress}`;
+
+        // Append the bar and in-progress text to the bar-with-text container
+        barWithText.appendChild(bar);
+        barWithText.appendChild(inProgress);
+
+        // Append label and bar-with-text to the bar container
+        barContainer.appendChild(label);
+        barContainer.appendChild(barWithText);
+
+        // Append the bar container to the chart container
+        barChartContainer.appendChild(barContainer);
+      });
+    }
+
+    // Fetch and render the bar chart on page load
+    fetchAndRenderBarChart();
+
+
+
+    // pie chart start----------------------------------------
+    function fetchData() {
+      const cacheBustingURL = `${sheetURL}&t=${new Date().getTime()}`;
+      return new Promise((resolve, reject) => {
+        Papa.parse(cacheBustingURL, {
+          download: true,
+          header: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+            resolve(results.data);
+          },
+          error: function(error) {
+            reject(error);
+          }
+        });
+      });
+    }
+
+    function createOrUpdateChart(data, series, chartId, chartInstance) {
+      const filteredBuildings = series
+        ? data.filter(building =>
+            series.includes(building.name[0]) // Filter based on multiple series if provided
+          )
+        : data; // If no series specified, consider all buildings.
+
+      const totalFloors = filteredBuildings.length * 14; // Assuming 14 floors per building
+      const completedFloors = filteredBuildings.reduce((acc, building) => acc + parseFloat(building.value || 0), 0);
+      const remainingFloors = totalFloors - completedFloors;
+
+      const totalBuildings = filteredBuildings.length;
+      const completedBuildings = filteredBuildings.filter(building => parseFloat(building.value || 0) === 14).length;
+      const remainingBuildings = totalBuildings - completedBuildings;
+
+      const ctx = document.getElementById(chartId).getContext('2d');
+      if (chartInstance) {
+        // Update existing chart
+        chartInstance.data.datasets[0].data = [completedFloors, remainingFloors];
+        chartInstance.update();
+      } else {
+        // Create new chart
+        return new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['Completed Floors', 'Remaining Floors'],
+            datasets: [{
+              data: [completedFloors, remainingFloors],
+              backgroundColor: ['#36A2EB', '#FF6384'],
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+         tooltip: {    
+                enabled: true,
+                position: 'average',
+                bodyFont: {
+                size: 10 // Adjust font size if needed
+            },
+                callbacks: {
+                  label: function (tooltipItem) {
+                    const value = tooltipItem.raw;
+                    const percentage = ((value / totalFloors) * 100).toFixed(2) + '%';
+
+                    if (tooltipItem.label === 'Completed Floors') {
+                      return [
+                        ` (${percentage})`,
+                        `Completed Floors: ${completedFloors}`,
+                        `Remaining Floors: ${remainingFloors}`,
+                        `Total Floors: ${totalFloors}`,
+                        `Completed Buildings: ${completedBuildings}`,
+                        `Remaining Buildings: ${remainingBuildings}`,
+                        `Total Buildings: ${totalBuildings}`
+                      ];
+                    } else {
+                      return [
+                        ` (${percentage})`,
+                        `Remaining Floors: ${remainingFloors}`,
+                        `Completed Floors: ${completedFloors}`,
+                        `Total Floors: ${totalFloors}`,
+                        `Completed Buildings: ${completedBuildings}`,
+                        `Remaining Buildings: ${remainingBuildings}`,
+                        `Total Buildings: ${totalBuildings}`
+                      ];
+                    }
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function updateCharts() {
+      fetchData()
+        .then(data => {
+          // Update E and F Series Pie Chart
+          window.efSeriesChart = createOrUpdateChart(data, ['E', 'F'], 'efSeriesPieChart', window.efSeriesChart);
+          // Update G Series Pie Chart
+          window.gSeriesChart = createOrUpdateChart(data, ['G'], 'gSeriesPieChart', window.gSeriesChart);
+          // Update D Series Pie Chart
+          window.dSeriesChart = createOrUpdateChart(data, ['D'], 'dSeriesPieChart', window.dSeriesChart);
+          // Update Total Buildings Pie Chart
+          window.totalBuildingsChart = createOrUpdateChart(data, null, 'pieChart', window.totalBuildingsChart);
+        })
+        .catch(error => {
+          console.error("Error fetching or parsing data:", error);
+        });
+    }
+
+    // Initial load
+    updateCharts();
+
+    // Periodically update charts every 10 seconds
+    setInterval(updateCharts, 2000);
+
+    //  pie chart end-------------------------------------------
+  </script>
+
+
+
+
+  <script type="module">
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzY2ViNTUwOC1iZGE5LTQzNWQtOWFmYy05ODBmYTBkZTgzZDEiLCJpZCI6MjY2NTE4LCJpYXQiOjE3MzU5MDI0NTF9.sA1Am_xXBcCECJGkU5x7ruhqDUOWHsWkjmRujhOCvTk';
+    
+    const viewer = new Cesium.Viewer('cesiumContainer', {    
+    });
+
+    // Fly the camera to Denver, Colorado at the given longitude, latitude, and height.
+    viewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(73.83334103506415, 18.648600375152043, 350), 
+      orientation: {
+        heading: Cesium.Math.toRadians(-40.0),
+        pitch: Cesium.Math.toRadians(-30.0),
+      }
+    });
+
+
+
+// STEP 3 CODE
+async function addBuildingGeoJSON() {
+  const geoJSONURL = await Cesium.IonResource.fromAssetId(2963619);
+  const geoJSON = await Cesium.GeoJsonDataSource.load(geoJSONURL, { clampToGround: true });
+  const dataSource = await viewer.dataSources.add(geoJSON);
+}
+addBuildingGeoJSON();
+
+async function addTxtGeoJSON() {
+  const geoJSONURL = await Cesium.IonResource.fromAssetId(2973792);
+  const geoJSON = await Cesium.GeoJsonDataSource.load(geoJSONURL, { clampToGround: true,
+    stroke: Cesium.Color.fromCssColorString("white"),
+    strokeWidth: 3,
+   });
+  const dataSource = await viewer.dataSources.add(geoJSON);
+}
+addTxtGeoJSON();
+
+const zadded_waterLines_sector12 = await Cesium.GeoJsonDataSource.load('zadded_waterLines_sector12.geojson', {
+    stroke: Cesium.Color.fromCssColorString("#5ad1ff"),
+    strokeWidth: 2,
+});
+viewer.dataSources.add(zadded_waterLines_sector12);
+
+const zadded_sewerLines_sector12 = await Cesium.GeoJsonDataSource.load('zadded_sewerLines_sector12.geojson', {
+    stroke: Cesium.Color.fromCssColorString("#46bc17"),
+    strokeWidth: 2,
+});
+viewer.dataSources.add(zadded_sewerLines_sector12);
+
+const zadded_sewerPoints_sector12 = await Cesium.GeoJsonDataSource.load('zadded_sewerPoints.geojson', {
+    // For point features
+    markerSize: 10, // Adjust marker size
+    markerColor: Cesium.Color.fromCssColorString("#74ff93"), // Adjust marker color
+    markerOutlineColor: Cesium.Color.BLACK, // Outline color of markers
+    markerOutlineWidth: 5, // Outline width of markers
+});
+viewer.dataSources.add(zadded_sewerPoints_sector12);
+
+
+
+
+
+
+
+
+
+
+
+const A13_G3 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962198),
+);
+
+const A13_G4 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962236),
+);
+
+const A12_G8 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962269),
+);
+
+const A12_G6 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968610),
+);
+
+const A12_G11 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968623),
+);
+const A11_G12 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962370),
+);
+
+const A10_D12 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962377),
+);
+
+const A9_G15 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962396),
+);
+
+const A9_G19 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962407),
+);
+
+const A10_D2 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968628),
+);
+
+const A10_D8 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968656),
+);
+
+const A8_G9 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962428),
+);
+
+const A8_G17 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962434),
+);
+
+const A8_D4 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962445),
+);
+
+const A8_D9 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962455),
+);
+
+const A8_E6 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962460),
+);
+
+const A8_E8 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962465),
+);
+
+const A8_E9 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962470),
+);
+
+const A7_D7 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962474),
+);
+
+const A7_D13 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962480),
+);
+
+const A8_E7 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968664),
+);
+
+const A8_E12 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968668),
+);
+
+const A6_G1 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962495),
+);
+
+const A6_G20 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962499),
+);
+
+const A6_E1 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962505),
+);
+
+const A6_E4 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962518),
+);
+
+const A6_D1 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968670),
+);
+
+const A5_E3 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962604),
+);
+
+const A6_E11 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968675),
+);
+
+const A5_G10 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968683),
+);
+
+const A4_D5 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2968687),
+);
+
+const A3_E10 = viewer.scene.primitives.add(
+  await Cesium.Cesium3DTileset.fromIonAssetId(2962765),
+);
+
+
+document.querySelector('#G3').onclick = function() {
+  viewer.flyTo(A13_G3);
+};
+document.querySelector('#G4').onclick = function() {
+  viewer.flyTo(A13_G4);
+};
+document.querySelector('#G8').onclick = function() {
+  viewer.flyTo(A12_G8);
+};
+document.querySelector('#G6').onclick = function() {
+  viewer.flyTo(A12_G6);
+};
+document.querySelector('#G11').onclick = function() {
+  viewer.flyTo(A12_G11);
+};
+document.querySelector('#G12').onclick = function() {
+  viewer.flyTo(A11_G12);
+};
+document.querySelector('#D12').onclick = function() {
+  viewer.flyTo(A10_D12);
+};
+document.querySelector('#G15').onclick = function() {
+  viewer.flyTo(A9_G15);
+};
+document.querySelector('#G19').onclick = function() {
+  viewer.flyTo(A9_G19);
+};
+document.querySelector('#D2').onclick = function() {
+  viewer.flyTo(A10_D2);
+};
+document.querySelector('#D8').onclick = function() {
+  viewer.flyTo(A10_D8);
+};
+document.querySelector('#G9').onclick = function() {
+  viewer.flyTo(A8_G9);
+};
+document.querySelector('#G17').onclick = function() {
+  viewer.flyTo(A8_G17);
+};
+document.querySelector('#D4').onclick = function() {
+  viewer.flyTo(A8_D4);
+};
+document.querySelector('#D9').onclick = function() {
+  viewer.flyTo(A8_D9);
+};
+document.querySelector('#E6').onclick = function() {
+  viewer.flyTo(A8_E6);
+};
+document.querySelector('#E8').onclick = function() {
+  viewer.flyTo(A8_E8);
+};
+document.querySelector('#E9').onclick = function() {
+  viewer.flyTo(A8_E9);
+};
+document.querySelector('#D7').onclick = function() {
+  viewer.flyTo(A7_D7);
+};
+document.querySelector('#D13').onclick = function() {
+  viewer.flyTo(A7_D13);
+};
+document.querySelector('#E7').onclick = function() {
+  viewer.flyTo(A8_E7);
+};
+document.querySelector('#E12').onclick = function() {
+  viewer.flyTo(A8_E12);
+};
+document.querySelector('#G1').onclick = function() {
+  viewer.flyTo(A6_G1);
+};
+document.querySelector('#G20').onclick = function() {
+  viewer.flyTo(A6_G20);
+};
+document.querySelector('#E1').onclick = function() {
+  viewer.flyTo(A6_E1);
+};
+document.querySelector('#E4').onclick = function() {
+  viewer.flyTo(A6_E4);
+};
+document.querySelector('#D1').onclick = function() {
+  viewer.flyTo(A6_D1);
+};
+document.querySelector('#E3').onclick = function() {
+  viewer.flyTo(A5_E3);
+};
+document.querySelector('#E11').onclick = function() {
+  viewer.flyTo(A6_E11);
+};
+document.querySelector('#G10').onclick = function() {
+  viewer.flyTo(A5_G10);
+};
+document.querySelector('#D5').onclick = function() {
+  viewer.flyTo(A4_D5);
+};
+document.querySelector('#E10').onclick = function() {
+  viewer.flyTo(A3_E10);
+};
+
+
+
+
+  </script>
+</body>
+</html>
